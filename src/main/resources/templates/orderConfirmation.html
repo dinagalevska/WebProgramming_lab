@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Ordered Ticket - Confirmation</title>
+    <!-- Include Tailwind CSS via CDN or use your preferred method -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">-->
+</head>
+<body class="max-w-screen-md mx-auto p-8 bg-gray-100">
+<section>
+    <header>
+        <h1 class="text-3xl font-bold mb-4">Movie Order page - Order confirmation </h1>
+    </header>
+    <table class="w-full border-collapse border border-black">
+        <tr class="bg-gray-200">
+            <th colspan="2" class="p-2">
+                Your Order Status
+            </th>
+        </tr>
+        <tr>
+            <td class="p-2"><b>Client Name </b></td>
+            <td class="p-2" th:text="${clientName}"></td>
+        <tr>
+            <td class="p-2"><b>Ticket for Movie</b></td>
+            <td class="p-2" th:text="${movieTitle}"></td>
+        </tr>
+        <tr>
+            <td class="p-2"><b>Number of tickets</b></td>
+            <td class="p-2" th:text="${numTickets}"></td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

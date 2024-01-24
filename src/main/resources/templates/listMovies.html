@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Movie Ticket Order Page - Welcome and Choose a Movie</title>
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"-->
+<!--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">-->
+
+    <style>
+        .circular-button {
+            display: inline-block;
+            padding: 10px 15px; /* Adjust padding as needed */
+            border-radius: 50%;
+            text-align: center;
+            text-decoration: none;
+            overflow: hidden;
+            background-color: #007bff; /* Set your desired blue color */
+            color: #fff; /* Set text color to contrast with the background */
+        }
+
+        .circular-button i {
+            line-height: 1; /* Center the icon vertically */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+<header class="bg-blue-500 text-white text-center py-4">
+    <h1 class="text-3xl">Web Programming</h1>
+</header>
+
+<div class="container mx-auto my-4">
+    <div class="row">
+        <div class="col-12" th:if="${movies.size() > 0}">
+
+            <form th:method="POST" th:action="@{/movies/add-order}" class="mt-4">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Movie Title</th>
+                            <th scope="col">Movie Summary</th>
+                            <th scope="col">Movie Rating</th>
+                            <th scope="col">Movie Production</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="movie : ${movies}" class="movie">
+                            <td>
+                                <label class="font-weight-bold">
+                                    <input type="radio" name="selectedMovie" th:value="${movie.getTitle()}"
+                                           th:text="${movie.getTitle()}" class="mr-2">
+                                </label>
+                            </td>
+                            <td th:text="${movie.getSummary()}"></td>
+                            <td th:text="${movie.getRating()}"></td>
+                            <td th:text="${movie.getProduction() != null} ? ${movie.getProduction().getName()} : 'No Production'"></td>
+                            <td>
+                                <a th:href="@{/movies/delete/{id} (id=${movie.id})}"
+                                   class="btn btn-sm btn-danger delete-movie mr-2 circular-button">
+                                    <i class="fa fa-trash" ></i> Delete
+                                </a>
+                                <a th:href="@{/movies/edit-form/{id} (id=${movie.getId()})}"
+                                   class="btn btn-sm btn-danger edit-movie mr-2 circular-button">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-xl">Choose number of tickets:</h2>
+                    <label class="mr-2">
+                        <input type="number" name="numTickets" min="1" max="10" class="border p-2">
+                    </label>
+                    <br/>
+                    <br/>
+                    <h2>Your username:</h2>
+                    <input type="text" name="clientName" id="clientName"><br/>
+                    <br/>
+                    <h2>Date created:</h2>
+                    <input type="datetime-local" name="dateCreated" id="dateCreated"/>
+                    <input type="submit" value="Order" class = "btn btn-sm btn-danger edit-movie mr-2 circular-button">
+                </div>
+            </form>
+
+            <div class="mt-4">
+                <a th:href="@{/movies/add-form}" class="btn btn-sm btn-success">
+                    <i class="fa fa-plus"></i> Add new movie
+                </a>
+            </div>
+            <div class="mt-4">
+                <a th:href="@{/displayOrders}" class="btn btn-sm btn-success">
+                    <i class="fa fa-plus"></i> Display Orders
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and other scripts go here -->
+</body>
+
+</html>

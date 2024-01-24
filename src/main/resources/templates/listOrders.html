@@ -1,0 +1,59 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Order list</title>
+<!--    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+
+<header class="text-4xl font-bold mb-8">
+    Order list
+</header>
+
+<main class="w-4/5 max-w-2xl">
+    <h2 class="text-2xl mb-4">Choose movie:</h2>
+
+    <form th:method="get" th:action="@{/displayOrders}" class="mb-4 flex items-center">
+        <label for="searchedTitle" class="mr-2">Search by title:</label>
+        <input type="text" id="searchedTitle" name="searchedTitle" class="border p-2 rounded">
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded ml-2">Search</button>
+    </form>
+
+<!--    <form th:method="get" th:action="@{/displayOrders}" class="mb-8 flex items-center">-->
+<!--        <label for="searchedUser" class="mr-2">Search by user:</label>-->
+<!--        <input type="text" id="searchedUser" name="searchedUser" class="border p-2 rounded">-->
+<!--        <button type="submit" class="bg-blue-500 text-white p-2 rounded ml-2">Search</button>-->
+<!--    </form>-->
+
+    <form th:method="get" th:action="@{/displayOrders}" class="mb-8 flex items-center">
+        <label for="dateFrom">From:</label>
+        <input type="datetime-local" id="dateFrom" name="dateFrom">
+        <label for="dateTo">To:</label>
+        <input type="datetime-local" id="dateTo" name="dateTo">
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded ml-2">Search</button>
+    </form>
+
+    <th:block th:each="ticketOrder: ${ticketOrders}" class="mb-4">
+        <div class="bg-white p-4 rounded shadow">
+            <p class="text-lg"><strong>Title:</strong> <span th:text="${ticketOrder.getMovieTitle()}"></span></p>
+            <p class="text-lg"><strong>Tickets:</strong> <span th:text="${ticketOrder.getNumberOfTickets()}"></span></p>
+            <p class="text-lg"><strong>User:</strong> <span th:text="${ticketOrder.getUser().username}"></span></p>
+        </div>
+        <a th:href="@{/displayOrders/delete/{id} (id=${ticketOrder.getId()})}"
+           class="btn btn-sm btn-danger delete-movie mr-2">
+            <i class="fa fa-trash"></i> Delete
+        </a>
+        <a th:href="@{/displayOrders/edit-order/{id} (id=${ticketOrder.getId()})}"
+           class="btn btn-sm btn-info edit-movie">
+            <i class="fa fa-edit"></i> Edit
+            <!--        </a>-->
+            </div>
+    </th:block>
+</main>
+
+</body>
+
+</html>

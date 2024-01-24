@@ -1,0 +1,39 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Order</title>
+    <!-- Include Tailwind CSS via CDN or use your preferred method -->
+    <!-- Bootstrap CSS can also be included if needed -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-8">
+
+
+<form th:method="POST" th:action="@{/displayOrders/edit}" class="max-w-md mx-auto bg-white p-4 rounded shadow-md">
+    <label for="movieTitle" class="block text-sm font-medium text-gray-700">Movie Title</label>
+    <input id="movieTitle" type="text" name="movieTitle" th:value="${order}!=null ? ${order.movieTitle} : ''" class="mt-1 p-2 w-full border rounded-md">
+    <input id="orderId" type="text" name="orderId" th:value="${order.getId()}">
+    <label for="clientName" class="block text-sm font-medium text-gray-700">Client Name</label>
+    <input id="clientName" type="text" name="clientName" th:value="${order}!=null ? ${order.user.username} : ''" class="mt-1 p-2 w-full border rounded-md">
+
+
+    <div class="mt-4">
+        <h2 class="text-xl">Choose number of tickets:</h2>
+        <label class="mr-2">
+            <input type="number" name="numTickets" min="1" max="10" class="border p-2">
+        </label>
+        <br/>
+        <br/>
+        <input type="datetime-local" name="date" id="date"/>
+    </div>
+
+
+    <input type='submit' value='Submit' class="mt-4 bg-blue-500 text-white p-2 rounded-md cursor-pointer">
+</form>
+
+</body>
+
+</html>
